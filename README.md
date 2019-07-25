@@ -2,10 +2,10 @@
 
 Easily set up ready-to-print canvas documents with a few quick prompts.
 
-##Use
+## Use
 Download the `new-canvas.jsx` file somewhere to your computer and double-click it. On some systems, you may need to drag it to a running instance of Photoshop.
 
-##Prompts
+## Prompts
 
 The script will ask you several questions to set up your document:
 
@@ -19,6 +19,8 @@ The script will ask you several questions to set up your document:
 	- How thick the frame is (depth of canvas), in inches.
 - **Buffer Amount?**
 	- How much canvas material you want to wrap around to the back (the amount you'll have left to staple).
+- **DPI?**
+	- Resolution of the document.
 
 
 ## Adding your image
