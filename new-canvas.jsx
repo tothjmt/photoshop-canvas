@@ -1,5 +1,6 @@
 ﻿var devMode = false;
 
+
 if (devMode)
 {
 	var documentName = 'Dev Doc';
@@ -7,6 +8,7 @@ if (devMode)
 	var artHeight = 16;
 	var barWidth = 1;
 	var buffer = 1;
+	var docResolution = 300;
 
 }
 else
@@ -16,11 +18,10 @@ else
 	var artHeight = Number(prompt('Document Height?', 16)) || 16;
 	var barWidth = Number(prompt('Stretcher Bar Width?', 1));
 	var buffer = Number(prompt('Buffer Amount (Length that should fold onto back)?', 1)) || 1;
+	var docResolution = Number(prompt('DPI?', 300)) || 300;
 }
 
 
-
-var docResolution = 300;
 
 var docWidth = artWidth + (barWidth * 2) + 2;
 var docHeight = artHeight + (barWidth * 2) + 2;
@@ -90,8 +91,15 @@ var cut = app.activeDocument.artLayers.add();
 cut.name = 'Cut line';
 cut.opacity = 50;
 
-app.activeDocument.selection.selectAll();
-app.activeDocument.selection.contract(2);
+var borderWidth = 2;
+var borderShape = [
+	[ borderWidth, borderWidth ],																// top left
+	[ (docWidth * docResolution) - borderWidth, borderWidth ],									// top right
+	[ (docWidth * docResolution) - borderWidth, (docHeight * docResolution) - borderWidth ],	// bottom right
+	[ borderWidth, (docHeight * docResolution) - borderWidth ]									// bottom left
+];
+
+app.activeDocument.selection.select(borderShape);
 app.activeDocument.selection.invert();
 
 var grey = new CMYKColor;
@@ -100,10 +108,10 @@ var grey = new CMYKColor;
     grey.magenta = 0;
     grey.yellow = 0;
 
+
 app.activeDocument.selection.fill(grey);
 app.activeDocument.selection.deselect();
 cut.visible = false;
-
 
 
 // Restore to normal setup
